@@ -543,7 +543,7 @@
       text: "Hərkəs yeni ilə, sən illərimə.\n\nBu vaxta qədər özümü saxladığım nə varsa, bax burda açılır: sən mənim üçün sadəcə bir günün, bir ayın ya da bir ilin adamı deyilsən. Yeni il xoş gəlsin, amma ən gözəli sənin olduğun hər gün olsun."
     };
 
-    const STORAGE_KEY = "advent_38_opened_v3";
+    const STORAGE_KEY = "advent_38_opened_v4";
     const gridEl = document.getElementById("calendarGrid");
     const openedCountEl = document.getElementById("openedCount");
     const totalCountEl = document.getElementById("totalCount");
@@ -585,7 +585,7 @@
 
     function isUnlocked(entry, todayStart) {
       if (entry.isSecretJan1) {
-        return getOpenedSet().has("dec-31");
+        return getOpenedSet().has("dec-31") && getEntryDate(entry) <= todayStart;
       }
       return getEntryDate(entry) <= todayStart;
     }
@@ -760,6 +760,10 @@
     });
 
     renderGrid();
+
+    setInterval(() => {
+      renderGrid();
+    }, 30000);
   </script>
 </body>
 </html>
