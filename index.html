@@ -73,7 +73,7 @@
     }
 
     .subtitle {
-      max-width: 540px;
+      max-width: 560px;
       margin: 0 auto 18px;
       font-size: 0.96rem;
       line-height: 1.6;
@@ -127,7 +127,7 @@
       color: var(--text-main);
       text-align: left;
       cursor: pointer;
-      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
       backdrop-filter: blur(8px);
     }
 
@@ -149,6 +149,24 @@
     .day-card.locked {
       opacity: 0.48;
       cursor: not-allowed;
+    }
+
+    .day-card.secret-reveal {
+      background: linear-gradient(145deg, rgba(255, 158, 181, 0.2), rgba(245, 207, 160, 0.16));
+      border-color: rgba(245, 207, 160, 0.55);
+      box-shadow: 0 0 28px rgba(255, 145, 175, 0.22);
+      animation: secretAppear 0.7s cubic-bezier(0.22, 1.25, 0.36, 1);
+    }
+
+    @keyframes secretAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.75) translateY(14px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .card-top {
@@ -197,8 +215,8 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(9, 4, 7, 0.76);
-      backdrop-filter: blur(7px);
+      background: rgba(9, 4, 7, 0.78);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
@@ -213,17 +231,60 @@
     .modal {
       position: relative;
       width: 100%;
-      max-width: 470px;
+      max-width: 480px;
       background: var(--modal-bg);
       border: 1px solid rgba(255, 196, 210, 0.24);
       border-radius: 24px;
-      padding: 26px 22px 24px;
+      padding: 28px 24px 26px;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
       overflow: hidden;
     }
 
     .modal.gift-pop {
       animation: giftPop 0.52s cubic-bezier(0.22, 1.25, 0.36, 1);
+    }
+
+    .modal.jan1-mode {
+      background: linear-gradient(160deg, #2b111b, #1b0c14 60%, #2a1816);
+      border-color: rgba(245, 207, 160, 0.48);
+      box-shadow: 0 28px 75px rgba(255, 120, 160, 0.25);
+    }
+
+    .bg-year-2027 {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(5.5rem, 22vw, 8.8rem);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255, 185, 205, 0.085);
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+      animation: yearPulse 4s ease-in-out infinite;
+    }
+
+    .modal.jan1-mode .bg-year-2027 {
+      display: flex;
+    }
+
+    @keyframes yearPulse {
+      0%, 100% {
+        transform: scale(0.98);
+        color: rgba(255, 185, 205, 0.075);
+      }
+      50% {
+        transform: scale(1.03);
+        color: rgba(245, 207, 160, 0.13);
+      }
+    }
+
+    .modal > *:not(.bg-year-2027) {
+      position: relative;
+      z-index: 2;
     }
 
     @keyframes giftPop {
@@ -252,7 +313,7 @@
       color: var(--text-main);
       font-size: 1.1rem;
       cursor: pointer;
-      z-index: 5;
+      z-index: 6 !important;
     }
 
     .modal-date {
@@ -265,7 +326,7 @@
 
     .modal-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.85rem;
+      font-size: 1.88rem;
       font-weight: 600;
       line-height: 1.15;
       margin-bottom: 14px;
@@ -273,16 +334,20 @@
     }
 
     .modal-text {
-      font-size: 0.98rem;
-      line-height: 1.72;
+      font-size: 0.99rem;
+      line-height: 1.75;
       color: var(--text-main);
       margin-bottom: 18px;
       white-space: pre-line;
     }
 
+    .modal.jan1-mode .modal-text {
+      font-size: 1.06rem;
+    }
+
     .audio-box {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 196, 210, 0.16);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 196, 210, 0.18);
       border-radius: 16px;
       padding: 12px 14px;
     }
@@ -311,7 +376,12 @@
       position: absolute;
       font-size: 1.25rem;
       opacity: 0;
-      animation: floatUpHeart 1.55s ease-out forwards;
+      animation: floatUpHeart 1.65s ease-out forwards;
+    }
+
+    .floating-heart.romantic-big {
+      font-size: 1.75rem;
+      animation: floatUpRomantic 2.6s ease-out forwards;
     }
 
     @keyframes floatUpHeart {
@@ -328,6 +398,24 @@
         transform: translate(var(--dx), -150px) scale(0.85) rotate(calc(var(--rot) * 1.6));
       }
     }
+
+    @keyframes floatUpRomantic {
+      0% {
+        opacity: 0;
+        transform: translate(0, 20px) scale(0.4) rotate(0deg);
+      }
+      16% {
+        opacity: 1;
+        transform: translate(calc(var(--dx) * 0.25), -35px) scale(1.2) rotate(var(--rot));
+      }
+      70% {
+        opacity: 0.9;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx), -240px) scale(0.95) rotate(calc(var(--rot) * 1.8));
+      }
+    }
   </style>
 </head>
 <body>
@@ -339,7 +427,7 @@
       <h1>38 Günlük Kiçik Qutular 🎁</h1>
       <p class="subtitle">Bəzi şeylər sözə ehtiyac duymur, bəziləri isə bircə cümlə ilə yerinə düşür. Hər günə bir pay.</p>
       <div class="status-bar">
-        <div class="pill">Açılan: <strong id="openedCount">0</strong> / 38</div>
+        <div class="pill">Açılan: <strong id="openedCount">0</strong> / <strong id="totalCount">38</strong></div>
         <div class="pill" id="todayInfo">Bu gün: —</div>
       </div>
     </header>
@@ -349,6 +437,7 @@
 
   <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true">
     <div class="modal" id="modalBox">
+      <div class="bg-year-2027" aria-hidden="true">2027</div>
       <button class="close-btn" id="closeModal" aria-label="Bağla">×</button>
       <div class="modal-date" id="modalDate"></div>
       <h2 class="modal-title" id="modalTitle"></h2>
@@ -361,92 +450,103 @@
   </div>
 
   <script>
-    // Mahnı faylı: song.mp3. Mahnı istəmədiyin günlərdə null saxla.
     const DEFAULT_SONG = "song.mp3";
 
     const ENTRIES = [
-      { day: 24, month: "Noyabr", title: "İlk qutu açıldı 🤍", song: DEFAULT_SONG,
+      { id: "nov-24", day: 24, month: "Noyabr", year: 2026, title: "İlk qutu açıldı 🤍", song: DEFAULT_SONG,
         text: "Hə, bax başlandı. Heç nəyi böyütmürəm, sadəcə 38 gün hər gün bura kiçik bir şey qoyacam. Ümid edirəm açanda üzündə balaca da olsa bir gülüş olar." },
-      { day: 25, month: "Noyabr", title: "Sakit not", song: null,
+      { id: "nov-25", day: 25, month: "Noyabr", year: 2026, title: "Sakit not", song: null,
         text: "Bu gün mahnı qoymadım. Bəzən səs olmayanda sözlər daha yaxşı eşidilir. Özündən muğayat ol, soyuqda çox qalma." },
-      { day: 26, month: "Noyabr", title: "Kofe bəhanəsi ☕", song: DEFAULT_SONG,
+      { id: "nov-26", day: 26, month: "Noyabr", year: 2026, title: "Kofe bəhanəsi ☕", song: DEFAULT_SONG,
         text: "Hava soyuqlaşanda kofe içməyin həmişə bir bəhanəsi tapılır. Bunu say kiçik kupon kimi: istədiyin vaxt bir kofe borcum olsun." },
-      { day: 27, month: "Noyabr", title: "Axşamüstü", song: null,
+      { id: "nov-27", day: 27, month: "Noyabr", year: 2026, title: "Axşamüstü", song: null,
         text: "Gün boyu o qədər boş-boş iş olur ki, axşam iki kəlmə normal danışmaq adamı xeyli yüngülləşdirir." },
-      { day: 28, month: "Noyabr", title: "Kiçik sual 🤔", song: DEFAULT_SONG,
+      { id: "nov-28", day: 28, month: "Noyabr", year: 2026, title: "Kiçik sual 🤔", song: DEFAULT_SONG,
         text: "İndi sənə bir sual: bu gün kiminləsə danışmasaydın, günün nəyi əskik qalardı? Cavab verməsən də olar, özündə saxla." },
-      { day: 29, month: "Noyabr", title: "Təbii hal", song: null,
+      { id: "nov-29", day: 29, month: "Noyabr", year: 2026, title: "Təbii hal", song: null,
         text: "Səndə ən xoşuma gələn şey o rahat, özün kimi olmağındır. Heç nəyi oynamırmış kimi görünürsən, o da adama yaxşı təsir edir." },
-      { day: 30, month: "Noyabr", title: "Noyabrın sonu", song: DEFAULT_SONG,
+      { id: "nov-30", day: 30, month: "Noyabr", year: 2026, title: "Noyabrın sonu", song: DEFAULT_SONG,
         text: "Noyabr da belə getdi. Sabahdan dekabr başlayır — ilin ən səs-küylü, bir az da şirin ayı." },
 
-      { day: 1, month: "Dekabr", title: "Dekabr gəldi ✨", song: DEFAULT_SONG,
+      { id: "dec-1", day: 1, month: "Dekabr", year: 2026, title: "Dekabr gəldi ✨", song: DEFAULT_SONG,
         text: "Xoş gəldin dekabr. İşıqlar, soyuq külək, isti çay... Bu ay sənə düşərli gəlsin, planladığın işlər rahat getsin." },
-      { day: 2, month: "Dekabr", title: "Bir az zarafat 😌", song: null,
+      { id: "dec-2", day: 2, month: "Dekabr", year: 2026, title: "Bir az zarafat 😌", song: null,
         text: "Bu gün özünü yormaq yoxdur. Əgər kimsə əsəblərini korlasa, de ki «vaxtim yoxdur» — ən yaxşı taktika budur." },
-      { day: 3, month: "Dekabr", title: "Film seçimi 🎬", song: DEFAULT_SONG,
+      { id: "dec-3", day: 3, month: "Dekabr", year: 2026, title: "Film seçimi 🎬", song: DEFAULT_SONG,
         text: "Kiçik kupon: növbəti dəfə baxmağa bir şey tapsaq, seçimi tam sənə verirəm. Zövqünə güvənirəm." },
-      { day: 4, month: "Dekabr", title: "Dərin nəfəs", song: null,
+      { id: "dec-4", day: 4, month: "Dekabr", year: 2026, title: "Dərin nəfəs", song: null,
         text: "Bəzən insan heç nə etmədən də yorulur. Bu gün özünə bir az vaxt ayır, telefonu bir kənara qoy." },
-      { day: 5, month: "Dekabr", title: "Soyuq hava 🧣", song: DEFAULT_SONG,
+      { id: "dec-5", day: 5, month: "Dekabr", year: 2026, title: "Soyuq hava 🧣", song: DEFAULT_SONG,
         text: "Qalın geyin, sonra «üşüdüm» deyib şikayət eləmə. Bu xəbərdarlıq idi." },
-      { day: 6, month: "Dekabr", title: "Uğur olsun", song: null,
+      { id: "dec-6", day: 6, month: "Dekabr", year: 2026, title: "Uğur olsun", song: null,
         text: "Bu gün əlinə aldığın iş yarımçıq qalmasın. Hər şey istədiyin kimi alınsın." },
-      { day: 7, month: "Dekabr", title: "Bir kadr 📸", song: DEFAULT_SONG,
+      { id: "dec-7", day: 7, month: "Dekabr", year: 2026, title: "Bir kadr 📸", song: DEFAULT_SONG,
         text: "Bu gün qarşına çıxan ən adi, amma xoşuna gələn bir şeyi çək saxla. Mənə atsan da olar, atmasan da." },
-      { day: 8, month: "Dekabr", title: "Gülüş", song: null,
+      { id: "dec-8", day: 8, month: "Dekabr", year: 2026, title: "Gülüş", song: null,
         text: "Sənin o səmimi gülüşün adamın gününü xeyli yumşaldır. Bunu tez-tez elə, yaraşır." },
-      { day: 9, month: "Dekabr", title: "Şirniyyat kuponu 🍰", song: DEFAULT_SONG,
+      { id: "dec-9", day: 9, month: "Dekabr", year: 2026, title: "Şirniyyat kuponu 🍰", song: DEFAULT_SONG,
         text: "Bu da ikinci kupon: hansı şirniyyatı sevirsənsə, vaxtını sən seçirsən, qalanı məndən." },
-      { day: 10, month: "Dekabr", title: "İlk ongünlük", song: null,
-        text: "Dekabrın ilk 10 günü bitdi. Göz açıp yumunca ayın yarısına çatacağıq." },
-      { day: 11, month: "Dekabr", title: "Özünə inan", song: DEFAULT_SONG,
+      { id: "dec-10", day: 10, month: "Dekabr", year: 2026, title: "İlk ongünlük", song: null,
+        text: "Dekabrın ilk 10 günü bitdi. Göz açııp yumunca ayın yarısına çatacağıq." },
+      { id: "dec-11", day: 11, month: "Dekabr", year: 2026, title: "Özünə inan", song: DEFAULT_SONG,
         text: "Bəzən özünü qiymətləndirməyi unudursan, amma kənardan baxanda hər şey aydın görünür. Bacarırsan." },
-      { day: 12, month: "Dekabr", title: "Sadəcə belə 🤍", song: null,
+      { id: "dec-12", day: 12, month: "Dekabr", year: 2026, title: "Sadəcə belə 🤍", song: null,
         text: "Heç bir xüsusi səbəb yoxdur. Sadəcə yaxşı ki varsan, bu təqvim də onun kiçik bəhanəsidir." },
-      { day: 13, month: "Dekabr", title: "13 rəqəmi 🍀", song: DEFAULT_SONG,
+      { id: "dec-13", day: 13, month: "Dekabr", year: 2026, title: "13 rəqəmi 🍀", song: DEFAULT_SONG,
         text: "Kim nə deyir desin, 13 pis rəqəm deyil. Bu gün sənin üçün yaxşı keçsin." },
-      { day: 14, month: "Dekabr", title: "Gəzinti kuponu 🚶‍♀️", song: null,
+      { id: "dec-14", day: 14, month: "Dekabr", year: 2026, title: "Gəzinti kuponu 🚶‍♀️", song: null,
         text: "Kupon: tələsmədən, ayaqlar yorulana qədər gəzmək və hər mövzudan danışmaq. Vaxtını özün deyərsən." },
-      { day: 15, month: "Dekabr", title: "Ayın yarısı", song: DEFAULT_SONG,
+      { id: "dec-15", day: 15, month: "Dekabr", year: 2026, title: "Ayın yarısı", song: DEFAULT_SONG,
         text: "Dekabrın ortası! Artıq hər yerdə Yeni il havası var, sənin də əhvalın yüngül olsun." },
-      { day: 16, month: "Dekabr", title: "Uzaqdan təsir", song: null,
+      { id: "dec-16", day: 16, month: "Dekabr", year: 2026, title: "Uzaqdan təsir", song: null,
         text: "Maraqlıdır, bəzi adamlarla danışanda adamın özündə də bir sakitlik yaranır. Sən də eləsən." },
-      { day: 17, month: "Dekabr", title: "Yavaşla", song: DEFAULT_SONG,
+      { id: "dec-17", day: 17, month: "Dekabr", year: 2026, title: "Yavaşla", song: DEFAULT_SONG,
         text: "Hər şeyi eyni anda çatdırmağa çalışma. Bu axşam bir az yavaşla." },
-      { day: 18, month: "Dekabr", title: "Detallar", song: null,
+      { id: "dec-18", day: 18, month: "Dekabr", year: 2026, title: "Detallar", song: null,
         text: "Səndəki o kiçik detallara fikir vermək, səliqə və zövq — həqiqətən fərqli görünür." },
-      { day: 19, month: "Dekabr", title: "Əsl hədiyyə 🎁", song: DEFAULT_SONG,
+      { id: "dec-19", day: 19, month: "Dekabr", year: 2026, title: "Əsl hədiyyə 🎁", song: DEFAULT_SONG,
         text: "Ən yaxşı şey qutuda olan deyil, vaxt ayırılıb düşünülmüş olandır. Ona görə bu təqvimi elə belə yığdım." },
-      { day: 20, month: "Dekabr", title: "Qış havası ❄️", song: null,
+      { id: "dec-20", day: 20, month: "Dekabr", year: 2026, title: "Qış havası ❄️", song: null,
         text: "İçəridə isti, çöldə soyuq — bu havanın özünəməxsus bir rahatlığı var." },
-      { day: 21, month: "Dekabr", title: "Ən uzun gecə", song: DEFAULT_SONG,
+      { id: "dec-21", day: 21, month: "Dekabr", year: 2026, title: "Ən uzun gecə", song: DEFAULT_SONG,
         text: "Bu gecə ilin ən uzun gecəsidir. Amma bundan sonra günlər yavaş-yavaş uzanacaq." },
-      { day: 22, month: "Dekabr", title: "Son 9 gün", song: null,
+      { id: "dec-22", day: 22, month: "Dekabr", year: 2026, title: "Son 9 gün", song: null,
         text: "İlin bitməyinə az qalıb. Bu il səni tanımaq mənim üçün yaxşı xatirə oldu." },
-      { day: 23, month: "Dekabr", title: "Vaxt necə keçir", song: DEFAULT_SONG,
+      { id: "dec-23", day: 23, month: "Dekabr", year: 2026, title: "Vaxt necə keçir", song: DEFAULT_SONG,
         text: "Səninlə danışanda vaxtın necə gəlib keçdiyini çox vaxt hiss etmirəm." },
-      { day: 24, month: "Dekabr", title: "Düz bir ay 🤍", song: null,
+      { id: "dec-24", day: 24, month: "Dekabr", year: 2026, title: "Düz bir ay 🤍", song: null,
         text: "İlk qutunu açdığımızdan düz bir ay keçdi. Ürəyindən keçən yaxşı şeylər tezliklə olsun." },
-      { day: 25, month: "Dekabr", title: "İşıqlar ✨", song: DEFAULT_SONG,
+      { id: "dec-25", day: 25, month: "Dekabr", year: 2026, title: "İşıqlar ✨", song: DEFAULT_SONG,
         text: "Şəhərin işıqları yandıqca əhval da dəyişir. Bu gün sənin günün olsun." },
-      { day: 26, month: "Dekabr", title: "Son 5 gün", song: null,
+      { id: "dec-26", day: 26, month: "Dekabr", year: 2026, title: "Son 5 gün", song: null,
         text: "Bu ilin ağırlığını özünlə gələn ilə aparma. Yüngül gir yeni ilə." },
-      { day: 27, month: "Dekabr", title: "Bir arzu 🌙", song: DEFAULT_SONG,
+      { id: "dec-27", day: 27, month: "Dekabr", year: 2026, title: "Bir arzu 🌙", song: DEFAULT_SONG,
         text: "Gələn ildən ən çox nə istəyirsən? Ağlında birini tut, qoy öz vaxtında gəlsin." },
-      { day: 28, month: "Dekabr", title: "Geri sayım", song: null,
+      { id: "dec-28", day: 28, month: "Dekabr", year: 2026, title: "Geri sayım", song: null,
         text: "İlin son günləridir. Hər günün kiçik bir dadını çıxarmağa çalış." },
-      { day: 29, month: "Dekabr", title: "Son 2 gün", song: DEFAULT_SONG,
+      { id: "dec-29", day: 29, month: "Dekabr", year: 2026, title: "Son 2 gün", song: DEFAULT_SONG,
         text: "Bu il sənə nə verdi, nəyi öyrətdi — bircə dəqiqə düşün, yaxşılarını yadda saxla." },
-      { day: 30, month: "Dekabr", title: "Sabaha qədər", song: null,
+      { id: "dec-30", day: 30, month: "Dekabr", year: 2026, title: "Sabaha qədər", song: null,
         text: "38 günün sonuna cəmi bir gün qaldı. Sabah yekunlaşdırırıq." },
-      { day: 31, month: "Dekabr", title: "Yeni ilin mübarək! 🥂", song: DEFAULT_SONG,
+      { id: "dec-31", day: 31, month: "Dekabr", year: 2026, title: "Yeni ilin mübarək! 🥂", song: DEFAULT_SONG,
         text: "38 gün belə bitdi. Yeni il sənə can sağlığı, bol-bol rahatlıq, gülməli anlar və ürəyindən keçən hər şeyin ən yaxşısını gətirsin! ✨" }
     ];
 
-    const STORAGE_KEY = "advent_38_opened_v2";
+    const SECRET_JAN_1 = {
+      id: "jan-1-2027",
+      day: 1,
+      month: "Yanvar",
+      year: 2027,
+      isSecretJan1: true,
+      title: "2027 — Səninlə 🤍",
+      song: DEFAULT_SONG,
+      text: "Hərkəs yeni ilə, sən illərimə.\n\nBu vaxta qədər özümü saxladığım nə varsa, bax burda açılır: sən mənim üçün sadəcə bir günün, bir ayın ya da bir ilin adamı deyilsən. Yeni il xoş gəlsin, amma ən gözəli sənin olduğun hər gün olsun."
+    };
+
+    const STORAGE_KEY = "advent_38_opened_v3";
     const gridEl = document.getElementById("calendarGrid");
     const openedCountEl = document.getElementById("openedCount");
+    const totalCountEl = document.getElementById("totalCount");
     const todayInfoEl = document.getElementById("todayInfo");
     const modalBackdrop = document.getElementById("modalBackdrop");
     const modalBox = document.getElementById("modalBox");
@@ -474,9 +574,8 @@
     }
 
     function getEntryDate(entry) {
-      const year = entry.month === "Noyabr" ? 2026 : 2026;
-      const monthIdx = entry.month === "Noyabr" ? 10 : 11;
-      return new Date(year, monthIdx, entry.day, 0, 0, 0, 0);
+      const monthIdx = entry.month === "Noyabr" ? 10 : (entry.month === "Dekabr" ? 11 : 0);
+      return new Date(entry.year, monthIdx, entry.day, 0, 0, 0, 0);
     }
 
     function getTodayStart() {
@@ -485,6 +584,9 @@
     }
 
     function isUnlocked(entry, todayStart) {
+      if (entry.isSecretJan1) {
+        return getOpenedSet().has("dec-31");
+      }
       return getEntryDate(entry) <= todayStart;
     }
 
@@ -492,35 +594,68 @@
       return getEntryDate(entry).getTime() === todayStart.getTime();
     }
 
-    function spawnHearts() {
-      const hearts = ["🤍", "♥", "✨", "💕"];
-      const count = 11;
+    function spawnHearts(isRomanticFinal = false) {
+      const hearts = isRomanticFinal
+        ? ["🤍", "❤️", "💖", "✨", "💕", "💗"]
+        : ["🤍", "♥", "✨", "💕"];
+      const count = isRomanticFinal ? 26 : 11;
+
       for (let i = 0; i < count; i++) {
         const el = document.createElement("span");
-        el.className = "floating-heart";
+        el.className = isRomanticFinal ? "floating-heart romantic-big" : "floating-heart";
         el.textContent = hearts[i % hearts.length];
-        const left = 24 + Math.random() * 52;
-        const top = 45 + Math.random() * 25;
-        const dx = (Math.random() - 0.5) * 150;
-        const rot = (Math.random() - 0.5) * 40;
+        const left = 14 + Math.random() * 72;
+        const top = 42 + Math.random() * 34;
+        const dx = (Math.random() - 0.5) * (isRomanticFinal ? 240 : 150);
+        const rot = (Math.random() - 0.5) * 48;
         el.style.left = `${left}%`;
         el.style.top = `${top}%`;
         el.style.setProperty("--dx", `${dx}px`);
         el.style.setProperty("--rot", `${rot}deg`);
-        el.style.animationDelay = `${i * 0.05}s`;
+        el.style.animationDelay = `${i * (isRomanticFinal ? 0.06 : 0.05)}s`;
         heartLayerEl.appendChild(el);
-        setTimeout(() => el.remove(), 1700);
+        setTimeout(() => el.remove(), isRomanticFinal ? 2800 : 1700);
+      }
+    }
+
+    let romanticLoopTimer = null;
+
+    function startRomanticShower() {
+      stopRomanticShower();
+      spawnHearts(true);
+      romanticLoopTimer = setInterval(() => {
+        if (!modalBackdrop.classList.contains("active") || !modalBox.classList.contains("jan1-mode")) {
+          stopRomanticShower();
+          return;
+        }
+        spawnHearts(true);
+      }, 1500);
+    }
+
+    function stopRomanticShower() {
+      if (romanticLoopTimer) {
+        clearInterval(romanticLoopTimer);
+        romanticLoopTimer = null;
       }
     }
 
     function openEntry(entry, openedSet) {
-      const isNewOpen = !openedSet.has(entry.day);
-      openedSet.add(entry.day);
+      const isNewOpen = !openedSet.has(entry.id);
+      openedSet.add(entry.id);
       saveOpenedSet(openedSet);
 
-      modalDateEl.textContent = `${entry.day} ${entry.month} 2026`;
+      modalDateEl.textContent = `${entry.day} ${entry.month} ${entry.year}`;
       modalTitleEl.textContent = entry.title;
       modalTextEl.textContent = entry.text;
+
+      if (entry.isSecretJan1) {
+        modalBox.classList.add("jan1-mode");
+        startRomanticShower();
+      } else {
+        modalBox.classList.remove("jan1-mode");
+        stopRomanticShower();
+        spawnHearts(false);
+      }
 
       if (entry.song) {
         audioBoxEl.style.display = "block";
@@ -539,13 +674,14 @@
       modalBox.classList.add("gift-pop");
       modalBackdrop.classList.add("active");
 
-      spawnHearts();
-      if (isNewOpen) {
+      if (isNewOpen || entry.id === "dec-31") {
         renderGrid();
       }
     }
 
     function closeModal() {
+      stopRomanticShower();
+      modalBox.classList.remove("jan1-mode");
       modalBackdrop.classList.remove("active");
       audioPlayerEl.pause();
       audioPlayerEl.currentTime = 0;
@@ -560,18 +696,22 @@
       const monthNames = ["Yanvar","Fevral","Mart","Aprel","May","İyun","İyul","Avqust","Sentyabr","Oktyabr","Noyabr","Dekabr"];
       todayInfoEl.textContent = `Bu gün: ${now.getDate()} ${monthNames[now.getMonth()]}`;
 
+      const showSecretJan1 = openedSet.has("dec-31");
+      const visibleEntries = showSecretJan1 ? [...ENTRIES, SECRET_JAN_1] : ENTRIES;
+      totalCountEl.textContent = showSecretJan1 ? "39" : "38";
+
       let unlockedOpenedCount = 0;
-      ENTRIES.forEach((entry) => {
-        if (openedSet.has(entry.day) && isUnlocked(entry, todayStart)) {
+      visibleEntries.forEach((entry) => {
+        if (openedSet.has(entry.id) && isUnlocked(entry, todayStart)) {
           unlockedOpenedCount++;
         }
       });
       openedCountEl.textContent = unlockedOpenedCount;
 
-      ENTRIES.forEach((entry) => {
+      visibleEntries.forEach((entry) => {
         const unlocked = isUnlocked(entry, todayStart);
         const today = isToday(entry, todayStart);
-        const opened = openedSet.has(entry.day) && unlocked;
+        const opened = openedSet.has(entry.id) && unlocked;
 
         const btn = document.createElement("button");
         btn.type = "button";
@@ -579,20 +719,22 @@
         if (!unlocked) btn.classList.add("locked");
         if (opened) btn.classList.add("opened");
         if (today) btn.classList.add("today");
+        if (entry.isSecretJan1) btn.classList.add("secret-reveal");
 
-        const icon = !unlocked ? "🔒" : (opened ? "🎁" : "🎀");
+        const icon = !unlocked ? "🔒" : (entry.isSecretJan1 ? "🥂" : (opened ? "🎁" : "🎀"));
+        const badgeText = entry.isSecretJan1 ? "SÜRPRİZ" : (today ? "BU GÜN" : entry.month.slice(0, 3).toUpperCase());
         const statusText = !unlocked
           ? `${entry.day} ${entry.month}`
-          : (opened ? "Açılıb" : (today ? "Bu günün qutusu" : "Açılmayıb"));
+          : (entry.isSecretJan1 ? (opened ? "Açıldı 🤍" : "Gizli qutu") : (opened ? "Açılıb" : (today ? "Bu günün qutusu" : "Açılmayıb")));
 
         btn.innerHTML = `
           <div class="card-top">
-            <span>${today ? "BU GÜN" : entry.month.slice(0, 3).toUpperCase()}</span>
+            <span>${badgeText}</span>
             <span class="gift-icon">${icon}</span>
           </div>
           <div>
             <div class="day-num">${entry.day}</div>
-            <div class="day-month">${entry.month}</div>
+            <div class="day-month">${entry.month} ${entry.isSecretJan1 ? "2027" : ""}</div>
           </div>
           <div class="card-footer">${statusText}</div>
         `;
