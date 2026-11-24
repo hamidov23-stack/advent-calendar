@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sənin Üçün • 38 Günlük Hekayə ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top, #3b142a 0%, #1d1024 45%, #0f0a18 100%);
+            color: #fff7ed;
+            min-height: 100vh;
+            padding: 28px 16px 54px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Yumşaq romantik işıq halələri */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            filter: blur(95px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: -80px;
+            left: -70px;
+            background: rgba(244, 114, 182, 0.22);
+        }
+
+        body::after {
+            bottom: -90px;
+            right: -70px;
+            background: rgba(251, 191, 36, 0.16);
+        }
+
+        /* Qar və parıltı effekti */
+        .snow-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -15px;
+            color: rgba(255, 241, 242, 0.72);
+            user-select: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.85;
+            }
+            100% {
+                transform: translateY(105vh) rotate(180deg);
+                opacity: 0.15;
+            }
+        }
+
+        header {
+            text-align: center;
+            max-width: 460px;
+            margin: 0 auto 26px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: #fbcfe8;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(251, 207, 232, 0.28);
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.15;
+            background: linear-gradient(135deg, #ffe4e6 0%, #fde68a 55%, #f9a8d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 0.86rem;
+            color: #e2d4dc;
+            line-height: 1.5;
+        }
+
+        .progress-pill {
+            margin-top: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(253, 230, 138, 0.25);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            color: #fde68a;
+        }
+
+        /* Təqvim toru */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-box {
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 207, 232, 0.2);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.22s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .day-box:active {
+            transform: scale(0.93);
+        }
+
+        .day-box .date-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff1f2;
+        }
+
+        .day-box .month-name {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            color: #f9a8d4;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* Bugünkü gün */
+        .day-box.today {
+            background: linear-gradient(145deg, rgba(244, 114, 182, 0.34), rgba(251, 191, 36, 0.24));
+            border: 1.5px solid #f9a8d4;
+            box-shadow: 0 0 22px rgba(244, 114, 182, 0.42);
+            animation: softGlow 2.6s infinite ease-in-out;
+        }
+
+        @keyframes softGlow {
+            0%, 100% { box-shadow: 0 0 14px rgba(244, 114, 182, 0.35); }
+            50% { box-shadow: 0 0 26px rgba(253, 224, 71, 0.55); }
+        }
+
+        /* Açılmış günlər */
+        .day-box.opened {
+            background: linear-gradient(145deg, rgba(253, 230, 138, 0.16), rgba(244, 114, 182, 0.14));
+            border-color: rgba(253, 230, 138, 0.48);
+        }
+
+        .day-box.opened::after {
+            content: '♥';
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 0.72rem;
+            color: #fda4af;
+        }
+
+        /* Kilidli günlər */
+        .day-box.locked {
+            opacity: 0.46;
+            background: rgba(15, 10, 24, 0.52);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .day-box.locked .month-name {
+            color: #cbd5e1;
+        }
+
+        .day-box.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 7px;
+            right: 9px;
+            font-size: 0.68rem;
+            opacity: 0.85;
+        }
+
+        /* 31 Dekabr xüsusi vurğu */
+        .day-box.finale {
+            border-color: rgba(253, 224, 71, 0.55);
+        }
+
+        /* Açılan pəncərə (Modal) */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 6, 16, 0.82);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.32s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-card {
+            background: linear-gradient(160deg, #2d1226 0%, #1c1024 60%, #160d1e 100%);
+            border: 1px solid rgba(251, 207, 232, 0.28);
+            border-radius: 28px;
+            padding: 28px 22px 24px;
+            max-width: 375px;
+            width: 100%;
+            text-align: center;
+            transform: translateY(22px) scale(0.97);
+            transition: transform 0.32s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(244, 114, 182, 0.16);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-date-tag {
+            font-size: 0.72rem;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: #f9a8d4;
+            margin-bottom: 8px;
+        }
+
+        .modal-emoji {
+            font-size: 2.6rem;
+            margin-bottom: 6px;
+        }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #fde68a;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .modal-text {
+            font-size: 0.93rem;
+            line-height: 1.65;
+            color: #f5ebef;
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+
+        .audio-wrapper {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(253, 230, 138, 0.3);
+            border-radius: 18px;
+            padding: 11px 12px;
+            margin-bottom: 18px;
+        }
+
+        .audio-label {
+            font-size: 0.78rem;
+            color: #fde68a;
+            margin-bottom: 7px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        audio {
+            width: 100%;
+            height: 36px;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .close-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+            border: none;
+            color: #fff;
+            padding: 11px 32px;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.38);
+            transition: transform 0.2s ease;
+        }
+
+        .close-btn:active {
+            transform: scale(0.96);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.32s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="snow-container" id="snowContainer"></div>
+
+    <header>
+        <div class="badge">24 Noyabr — 31 Dekabr</div>
+        <h1>Yeni İlə Doğru Səninlə ✨</h1>
+        <p>Hər gün sənin üçün saxlanmış kiçik bir cümlə, bir xatirə və bir melodiya</p>
+        <div class="progress-pill" id="progressPill">✨ Açılan qutular: 0 / 38</div>
+    </header>
+
+    <div class="calendar-grid" id="calendarGrid"></div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <div class="modal-date-tag" id="modalDateTag">24 NOYABR</div>
+            <div class="modal-emoji" id="modalEmoji">✨</div>
+            <div class="modal-title" id="modalTitle">Başlıq</div>
+            <div class="modal-text" id="modalText">Mesaj mətni</div>
+
+            <div class="audio-wrapper" id="audioWrapper">
+                <div class="audio-label">🎵 Justin Bieber — Mistletoe</div>
+                <audio id="bgAudio" controls preload="metadata">
+                    <source src="song.mp3" type="audio/mpeg">
+                    Brauzeriniz audio pleyeri dəstəkləmir.
+                </audio>
+            </div>
+
+            <button class="close-btn" onclick="closeModal()">Bağla</button>
+        </div>
+    </div>
+
+    <script>
+        const surprises = [
+            { date: "2026-11-24", day: "24", month: "Noyabr", emoji: "✨", title: "İlk Qutu Açıldı", text: "Bu gündən ilin sonuna qədər hər gün yalnız sənə aid kiçik bir sürpriz açılacaq. İstədim ki, soyuq günlərdə belə üzündə isti bir təbəssüm yaransın." },
+            { date: "2026-11-25", day: "25", month: "Noyabr", emoji: "☕", title: "İsti Kofe Kuponu", text: "Soyuq havalarda ən gözəl bəhanə isti bir kofe və uzun söhbətdir. Bu kupon istədiyin gün məndən sənə bir kofe borcudur." },
+            { date: "2026-11-26", day: "26", month: "Noyabr", emoji: "🎶", title: "Qışın İlk Melodiyası", text: "Bəzi mahnılar insanın əhvalını bir anda dəyişir. Aşağıdakı pleyeri qoş — bu mahnı bu 38 günün fon musiqisi olsun." },
+            { date: "2026-11-27", day: "27", month: "Noyabr", emoji: "🌙", title: "Gecə Qeydi", text: "Gün nə qədər yorucu keçsə də, səninlə iki kəlmə danışmaq hər şeyi sakitləşdirir." },
+            { date: "2026-11-28", day: "28", month: "Noyabr", emoji: "🍫", title: "Şirin Bir Fasilə", text: "Bu gün özünü sevdiyin bir şirniyyatla mükafatlandır — çünki səbəbə ehtiyac yoxdur." },
+            { date: "2026-11-29", day: "29", month: "Noyabr", emoji: "🕯️", title: "Sakitlik", text: "Ətrafdakı səs-küyün içində sənin o sakit və səmimi halın həmişə fərqli görünür." },
+            { date: "2026-11-30", day: "30", month: "Noyabr", emoji: "🍂", title: "Noyabrın Sonu", text: "Payızın son gününü yola salırıq. Sabahdan ilin ən sehrli ayı — dekabr başlayır." },
+            { date: "2026-12-01", day: "1", month: "Dekabr", emoji: "❄️", title: "Xoş Gəldin Dekabr", text: "İşıqların, soyuq axşamların və isti söhbətlərin ayı başladı. Hər günü sənə uğur və sevinc gətirsin." },
+            { date: "2026-12-02", day: "2", month: "Dekabr", emoji: "💫", title: "Səmimiyyət", text: "Səndə olan o təbii rahatlıq insanın yanında özünü evindəki kimi hiss etməsinə səbəb olur." },
+            { date: "2026-12-03", day: "3", month: "Dekabr", emoji: "🎬", title: "Film Axşamı Kuponu", text: "Kupon: Növbəti dəfə baxacağımız filmi və ya videonu tamamilə sən seçirsən." },
+            { date: "2026-12-04", day: "4", month: "Dekabr", emoji: "🌊", title: "Dərin Sakitlik", text: "Dəniz kimi sakit, amma dərin bir aura — bəzən insanın ruhuna məhz bu rahatlıq yaxşı gəlir." },
+            { date: "2026-12-05", day: "5", month: "Dekabr", emoji: "🧣", title: "Özündən Muğayat Ol", text: "Qış küləyi özünü göstərir; qalın geyinməyi və özünə yaxşı baxmağı unutma." },
+            { date: "2026-12-06", day: "6", month: "Dekabr", emoji: "🍀", title: "Uğur Səninlə Olsun", text: "Bu gün ürəyindən keçən və başladığın hər işin asanlıqla alınmasını arzulayıram." },
+            { date: "2026-12-07", day: "7", month: "Dekabr", emoji: "📸", title: "Bir Anlıq Kadr", text: "Bu gün özünün və ya bəyəndiyin bir mənzərənin şəklini çək, mənə də göndər." },
+            { date: "2026-12-08", day: "8", month: "Dekabr", emoji: "✨", title: "Parıltı", text: "Gülüşün ətrafdakı bütün soyuqluğu unutduracaq qədər istidir." },
+            { date: "2026-12-09", day: "9", month: "Dekabr", emoji: "🍰", title: "Desert Kuponu", text: "Kupon: Sevdiyin şirniyyatı birlikdə yeməyə getmək kuponu — vaxtını sən seçirsən." },
+            { date: "2026-12-10", day: "10", month: "Dekabr", emoji: "🎧", title: "Özünə Vaxt Ayır", text: "Dekabrın ilk ongünlüyü bitdi. Bir az dincəl, sevdiyin musiqini qoş və günün dadını çıxar." },
+            { date: "2026-12-11", day: "11", month: "Dekabr", emoji: "🌟", title: "İnam", text: "Sənin zərifliyinlə yanaşı güclü tərəfin də həmişə hiss olunur — özünə inan." },
+            { date: "2026-12-12", day: "12", month: "Dekabr", emoji: "🤍", title: "Sadəcə Xatırlatma", text: "Bu gün də sənə yalnız yaxşı hisslər və hüzur gətirsin. Yaxşı ki varsan." },
+            { date: "2026-12-13", day: "13", month: "Dekabr", emoji: "🔮", title: "Şanslı 13", text: "Başqaları nə deyir desin, bu gün sənin üçün ən düşərli günlərdən biri olsun." },
+            { date: "2026-12-14", day: "14", month: "Dekabr", emoji: "🚶‍♂️", title: "Axşam Gəzintisi Kuponu", text: "Kupon: Tələsmədən, işıqların altında uzun-uzadı söhbət edə-edə gəzmək kuponu." },
+            { date: "2026-12-15", day: "15", month: "Dekabr", emoji: "🎄", title: "Ayın Yarısı", text: "Dekabrın ortasına çatdıq! Hər küçədə Yeni il ab-havası daha çox hiss olunur." },
+            { date: "2026-12-16", day: "16", month: "Dekabr", emoji: "💌", title: "Kiçik Məktub", text: "Bəzi insanlar uzaqdan belə insanın gününü gözəlləşdirməyi bacarır — sən də onlardansan." },
+            { date: "2026-12-17", day: "17", month: "Dekabr", emoji: "☕", title: "Nəfəs Almaq Vaxtı", text: "Hər şeyi bir gündə çatdırmağa çalışma; bu axşam özünə rahatlıq ver." },
+            { date: "2026-12-18", day: "18", month: "Dekabr", emoji: "🌸", title: "Zəriflik", text: "Hər detalda zövqün və zərifliyin hiss olunur — bunu dəyişmə." },
+            { date: "2026-12-19", day: "19", month: "Dekabr", emoji: "🎁", title: "Ən Gözəl Hədiyyə", text: "Ən dəyərli hədiyyə qutuda olan yox, diqqətlə düşünülmüş və səmimi olandır." },
+            { date: "2026-12-20", day: "20", month: "Dekabr", emoji: "❄️", title: "Qış Nağılı", text: "İsti ev, sakit musiqi və qar dənəcikləri — qışın ən romantik günləri." },
+            { date: "2026-12-21", day: "21", month: "Dekabr", emoji: "🌌", title: "İlin Ən Uzun Gecəsi", text: "Bu gecə ilin ən uzun gecəsidir, amma sabahdan etibarən işıq hər gün bir az daha artacaq." },
+            { date: "2026-12-22", day: "22", month: "Dekabr", emoji: "💫", title: "Son 9 Gün", text: "Bu ilin mənə verdiyi ən gözəl şeylərdən biri səni tanımaq oldu." },
+            { date: "2026-12-23", day: "23", month: "Dekabr", emoji: "🧸", title: "İstilik", text: "Sənin yanında vaxtın necə keçdiyini heç vaxt hiss etmirəm." },
+            { date: "2026-12-24", day: "24", month: "Dekabr", emoji: "🕯️", title: "Düz Bir Ay", text: "Bu təqvimi açdığımız gündən düz bir ay keçdi. Ürəyindəki bütün gözəl arzular çin olsun." },
+            { date: "2026-12-25", day: "25", month: "Dekabr", emoji: "🎄", title: "Bayram İşıqları", text: "Şəhərin bütün işıqları yansa da, ən parlaq işıq sənin gözlərindəki enerjidir." },
+            { date: "2026-12-26", day: "26", month: "Dekabr", emoji: "🎵", title: "Son 5 Gün", text: "Köhnə ilin bütün yorğunluğunu arxada qoyub yalnız gözəl xatirələri özümüzlə aparaq." },
+            { date: "2026-12-27", day: "27", month: "Dekabr", emoji: "✨", title: "Bir Arzu Tut", text: "2027-ci ildən ən çox nəyi arzulayırsan? Gözlərini yum və bir arzu tut." },
+            { date: "2026-12-28", day: "28", month: "Dekabr", emoji: "🥂", title: "Geri Sayım", text: "İlin son günlərinə yaxınlaşırıq — hər anın dadını çıxar." },
+            { date: "2026-12-29", day: "29", month: "Dekabr", emoji: "🌟", title: "Son 2 Gün", text: "Bu ilin sənə öyrətdiyi və gətirdiyi hər gözəl şey üçün təşəkkür etmək vaxtıdır." },
+            { date: "2026-12-30", day: "30", month: "Dekabr", emoji: "⏳", title: "Sabah Böyük Gündür", text: "38 günlük bu kiçik hekayənin son səhifəsinə cəmi bir gün qaldı..." },
+            { date: "2026-12-31", day: "31", month: "Dekabr", emoji: "🎆", title: "Yeni İlin Mübarək! ♥", text: "Yeni il sənə sağlamlıq, hüzur, bol-bol sevinc və ürəyindən keçən bütün arzuların gerçəkləşməsini gətirsin! Yeni ildə də hər günün belə işıqlı və gözəl olsun." }
+        ];
+
+        const grid = document.getElementById('calendarGrid');
+        const progressPill = document.getElementById('progressPill');
+        const STORAGE_KEY = 'romanticAdvent_2026_v1';
+        const openedDays = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const todayStr = `${year}-${month}-${day}`;
+
+        function updateProgress() {
+            const validOpened = openedDays.filter(d => d <= todayStr).length;
+            progressPill.innerText = `✨ Açılan qutular: ${validOpened} / ${surprises.length}`;
+        }
+
+        surprises.forEach((item, index) => {
+            const box = document.createElement('div');
+            box.className = 'day-box';
+            if (index === surprises.length - 1) box.classList.add('finale');
+
+            const isLocked = item.date > todayStr;
+            const isToday = item.date === todayStr;
+            const isOpened = openedDays.includes(item.date);
+
+            if (isLocked) box.classList.add('locked');
+            if (isToday) box.classList.add('today');
+            if (isOpened && !isLocked) box.classList.add('opened');
+
+            box.innerHTML = `
+                <span class="date-num">${item.day}</span>
+                <span class="month-name">${item.month}</span>
+            `;
+
+            box.onclick = () => {
+                if (isLocked) {
+                    box.classList.remove('shake');
+                    void box.offsetWidth;
+                    box.classList.add('shake');
+                    showModal(
+                        `${item.day} ${item.month}`,
+                        "⏳",
+                        "Hələ Vaxtı Deyil",
+                        `Bu qutu ${item.day} ${item.month} tarixində açılacaq. Bir az səbirli ol ✨`,
+                        false
+                    );
+                } else {
+                    if (!openedDays.includes(item.date)) {
+                        openedDays.push(item.date);
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(openedDays));
+                        box.classList.add('opened');
+                        updateProgress();
+                    }
+                    showModal(
+                        `${item.day} ${item.month}`,
+                        item.emoji,
+                        item.title,
+                        item.text,
+                        true
+                    );
+                }
+            };
+
+            grid.appendChild(box);
+        });
+
+        updateProgress();
+
+        function showModal(dateTag, emoji, title, text, showSong) {
+            document.getElementById('modalDateTag').innerText = dateTag;
+            document.getElementById('modalEmoji').innerText = emoji;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalText').innerText = text;
+            document.getElementById('audioWrapper').style.display = showSong ? 'block' : 'none';
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            const audio = document.getElementById('bgAudio');
+            audio.pause();
+            audio.currentTime = 0;
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function createSnow() {
+            const container = document.getElementById('snowContainer');
+            const symbols = ['❄', '✦', '•'];
+            const flakesCount = 34;
+
+            for (let i = 0; i < flakesCount; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.innerText = symbols[i % symbols.length];
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.fontSize = (Math.random() * 9 + 7) + 'px';
+                flake.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                flake.style.animationDelay = Math.random() * 6 + 's';
+                container.appendChild(flake);
+            }
+        }
+        createSnow();
+    </script>
+</body>
+</html>
