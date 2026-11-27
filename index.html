@@ -44,7 +44,6 @@
       position: relative;
     }
 
-    /* Ambient Winter Aurora Shimmer */
     body::before {
       content: "";
       position: fixed;
@@ -66,7 +65,6 @@
       }
     }
 
-    /* Snowfall & Twinkling Stars Layer */
     .winter-sky {
       position: fixed;
       inset: 0;
@@ -236,7 +234,6 @@
       overflow: hidden;
     }
 
-    /* Subtle frosted top shine on cards */
     .day-card::before {
       content: "";
       position: absolute;
@@ -491,6 +488,78 @@
       font-size: 1.07rem;
     }
 
+    /* Two-choice romantic note (Nov 28) */
+    .choice-box {
+      display: none;
+      margin-bottom: 18px;
+    }
+
+    .choice-box.active {
+      display: block;
+    }
+
+    .choice-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 420px) {
+      .choice-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .choice-btn {
+      padding: 11px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 198, 218, 0.28);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    .choice-btn:hover {
+      border-color: var(--rose);
+      background: rgba(255, 179, 201, 0.14);
+      transform: translateY(-2px);
+    }
+
+    .choice-btn.selected {
+      background: linear-gradient(135deg, rgba(255, 179, 201, 0.26), rgba(246, 213, 168, 0.2));
+      border-color: var(--champagne);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(255, 155, 190, 0.2);
+    }
+
+    .choice-reveal {
+      min-height: 68px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 179, 201, 0.08);
+      border: 1px dashed rgba(246, 213, 168, 0.36);
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #fff5f9;
+      animation: choiceFade 0.35s ease;
+    }
+
+    @keyframes choiceFade {
+      0% {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .audio-box {
       background: rgba(255, 255, 255, 0.055);
       border: 1px solid rgba(255, 205, 224, 0.22);
@@ -589,6 +658,15 @@
       <div class="modal-date" id="modalDate"></div>
       <h2 class="modal-title" id="modalTitle"></h2>
       <p class="modal-text" id="modalText"></p>
+
+      <div class="choice-box" id="choiceBox">
+        <div class="choice-buttons">
+          <button type="button" class="choice-btn" id="choiceSecretBtn">💌 Sənə bir sirr</button>
+          <button type="button" class="choice-btn" id="choiceEveningBtn">🌙 Bu axşamlıq bir söz</button>
+        </div>
+        <div class="choice-reveal" id="choiceReveal" style="display: none;"></div>
+      </div>
+
       <div class="audio-box" id="audioBox" style="display: none;">
         <div class="audio-label" id="audioLabel">Bu günün fon musiqisi 🎶</div>
         <audio id="audioPlayer" controls preload="metadata"></audio>
@@ -608,8 +686,11 @@
         text: "Hava soyuqlaşanda kofe içməyin həmişə bir bəhanəsi tapılır. Bunu say kiçik kupon kimi: istədiyin vaxt bir kofe borcum olsun." },
       { id: "nov-27", day: 27, month: "Noyabr", year: 2026, title: "Axşamüstü", song: "song1.mp3",
         text: "Gün boyu o qədər boş-boş iş olur ki, axşam iki kəlmə normal danışmaq adamı xeyli yüngülləşdirir." },
-      { id: "nov-28", day: 28, month: "Noyabr", year: 2026, title: "Kiçik sual 🤔", song: DEFAULT_SONG,
-        text: "İndi sənə bir sual: bu gün kiminləsə danışmasaydın, günün nəyi əskik qalardı? Cavab verməsən də olar, özündə saxla." },
+      { id: "nov-28", day: 28, month: "Noyabr", year: 2026, title: "İki seçim 🤍", song: "song2.mp3",
+        isTwoChoice: true,
+        text: "Bu gün adi cümlə qoymadım. İkisindən birini seç — hərəsinin altında balaca bir şey gizlənib.",
+        secretText: "Bəzən gün ərzində ağlıma gələn ilk şey sənsən, amma bunu heç vaxt səs-küylə demirəm — elə belə qalması daha xoşuma gəlir.",
+        eveningText: "Soyuq havada səninlə danışmaq adamın içindəki o narahatlığı sakitləşdirir. Yaxşı ki varsan 🤍" },
       { id: "nov-29", day: 29, month: "Noyabr", year: 2026, title: "Təbii hal", song: null,
         text: "Səndə ən xoşuma gələn şey o rahat, özün kimi olmağındır. Heç nəyi oynamırmış kimi görünürsən, o da adama yaxşı təsir edir." },
       { id: "nov-30", day: 30, month: "Noyabr", year: 2026, title: "Noyabrın sonu", song: DEFAULT_SONG,
@@ -702,11 +783,16 @@
     const modalDateEl = document.getElementById("modalDate");
     const modalTitleEl = document.getElementById("modalTitle");
     const modalTextEl = document.getElementById("modalText");
+    const choiceBoxEl = document.getElementById("choiceBox");
+    const choiceSecretBtn = document.getElementById("choiceSecretBtn");
+    const choiceEveningBtn = document.getElementById("choiceEveningBtn");
+    const choiceRevealEl = document.getElementById("choiceReveal");
     const audioBoxEl = document.getElementById("audioBox");
     const audioPlayerEl = document.getElementById("audioPlayer");
     const heartLayerEl = document.getElementById("heartLayer");
 
-    /* Generate gentle winter snowfall & twinkling stars */
+    let activeTwoChoiceEntry = null;
+
     function initWinterSky() {
       const flakes = ["❄", "❅", "❆", "•"];
       for (let i = 0; i < 36; i++) {
@@ -821,6 +907,23 @@
       }
     }
 
+    function applyChoiceSelection(type) {
+      if (!activeTwoChoiceEntry) return;
+      choiceSecretBtn.classList.toggle("selected", type === "secret");
+      choiceEveningBtn.classList.toggle("selected", type === "evening");
+
+      choiceRevealEl.style.display = "block";
+      choiceRevealEl.style.animation = "none";
+      void choiceRevealEl.offsetWidth;
+      choiceRevealEl.style.animation = "choiceFade 0.35s ease";
+      choiceRevealEl.textContent =
+        type === "secret" ? activeTwoChoiceEntry.secretText : activeTwoChoiceEntry.eveningText;
+      spawnHearts(false);
+    }
+
+    choiceSecretBtn.addEventListener("click", () => applyChoiceSelection("secret"));
+    choiceEveningBtn.addEventListener("click", () => applyChoiceSelection("evening"));
+
     function openEntry(entry, openedSet) {
       const isNewOpen = !openedSet.has(entry.id);
       openedSet.add(entry.id);
@@ -829,6 +932,19 @@
       modalDateEl.textContent = `${entry.day} ${entry.month} ${entry.year}`;
       modalTitleEl.textContent = entry.title;
       modalTextEl.textContent = entry.text;
+
+      if (entry.isTwoChoice) {
+        activeTwoChoiceEntry = entry;
+        choiceBoxEl.classList.add("active");
+        choiceSecretBtn.classList.remove("selected");
+        choiceEveningBtn.classList.remove("selected");
+        choiceRevealEl.style.display = "none";
+        choiceRevealEl.textContent = "";
+      } else {
+        activeTwoChoiceEntry = null;
+        choiceBoxEl.classList.remove("active");
+        choiceRevealEl.style.display = "none";
+      }
 
       if (entry.isSecretJan1) {
         modalBox.classList.add("jan1-mode");
@@ -845,6 +961,7 @@
           audioPlayerEl.src = entry.song;
         }
         audioPlayerEl.currentTime = 0;
+        audioPlayerEl.play().catch(() => {});
       } else {
         audioPlayerEl.pause();
         audioPlayerEl.removeAttribute("src");
@@ -863,6 +980,8 @@
 
     function closeModal() {
       stopRomanticShower();
+      activeTwoChoiceEntry = null;
+      choiceBoxEl.classList.remove("active");
       modalBox.classList.remove("jan1-mode");
       modalBackdrop.classList.remove("active");
       audioPlayerEl.pause();
