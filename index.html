@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hər Gün Sənə Doğru ✨</title>
+  <title>Hər Gün Sənə Doğru 🕯️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-night-1: #090d1c;
-      --bg-night-2: #141730;
-      --bg-night-3: #231428;
-      --card-glass: rgba(255, 248, 252, 0.055);
-      --card-border: rgba(235, 215, 245, 0.16);
-      --card-open: linear-gradient(145deg, rgba(255, 175, 200, 0.16), rgba(246, 208, 162, 0.11));
-      --card-open-border: rgba(255, 198, 218, 0.45);
-      --text-main: #fdf7fb;
-      --text-muted: rgba(242, 228, 240, 0.72);
-      --rose: #ffb3c9;
-      --champagne: #f6d5a8;
-      --ice-blue: #cde4ff;
-      --modal-bg: #131224;
+      --bg-velvet-1: #160910;
+      --bg-velvet-2: #261019;
+      --bg-velvet-3: #1a0c14;
+      --paper-glass: rgba(255, 241, 236, 0.055);
+      --paper-border: rgba(245, 206, 184, 0.2);
+      --paper-open: linear-gradient(155deg, rgba(255, 224, 212, 0.16), rgba(212, 148, 128, 0.1));
+      --paper-open-border: rgba(246, 204, 178, 0.5);
+      --cream-text: #fdf3ee;
+      --soft-blush: rgba(246, 224, 216, 0.74);
+      --rose-gold: #f4bca8;
+      --warm-gold: #f7d6a3;
+      --wax-red: #8e2842;
+      --letter-sheet: #1e0f17;
     }
 
     * {
@@ -33,39 +33,43 @@
     body {
       min-height: 100vh;
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text-main);
+      color: var(--cream-text);
       background:
-        radial-gradient(ellipse at 20% 10%, rgba(124, 156, 255, 0.2), transparent 46%),
-        radial-gradient(ellipse at 82% 18%, rgba(235, 128, 168, 0.22), transparent 45%),
-        radial-gradient(ellipse at 50% 95%, rgba(246, 213, 168, 0.12), transparent 50%),
-        linear-gradient(170deg, var(--bg-night-1) 0%, var(--bg-night-2) 52%, var(--bg-night-3) 100%);
-      padding: 34px 16px 76px;
+        radial-gradient(ellipse at 15% 12%, rgba(232, 138, 120, 0.2), transparent 46%),
+        radial-gradient(ellipse at 85% 22%, rgba(182, 72, 108, 0.24), transparent 48%),
+        radial-gradient(ellipse at 50% 92%, rgba(247, 214, 163, 0.14), transparent 52%),
+        linear-gradient(165deg, var(--bg-velvet-1) 0%, var(--bg-velvet-2) 52%, var(--bg-velvet-3) 100%);
+      padding: 36px 18px 80px;
       overflow-x: hidden;
       position: relative;
     }
 
+    /* Warm Candlelight Ambient Glow */
     body::before {
       content: "";
       position: fixed;
-      inset: -20%;
+      inset: -15%;
       background:
-        radial-gradient(circle at 30% 25%, rgba(255, 179, 201, 0.08), transparent 40%),
-        radial-gradient(circle at 72% 60%, rgba(168, 208, 255, 0.08), transparent 42%);
-      animation: auroraDrift 14s ease-in-out infinite alternate;
+        radial-gradient(circle at 28% 24%, rgba(247, 214, 163, 0.09), transparent 38%),
+        radial-gradient(circle at 74% 68%, rgba(226, 120, 145, 0.09), transparent 42%);
+      animation: candleBreath 11s ease-in-out infinite alternate;
       pointer-events: none;
       z-index: 0;
     }
 
-    @keyframes auroraDrift {
+    @keyframes candleBreath {
       0% {
-        transform: translate(-2%, -1%) scale(1);
+        transform: scale(0.98) translate(-1%, -1%);
+        opacity: 0.85;
       }
       100% {
-        transform: translate(2%, 2%) scale(1.06);
+        transform: scale(1.05) translate(1.5%, 1.5%);
+        opacity: 1;
       }
     }
 
-    .winter-sky {
+    /* Floating Golden Embers & Petals */
+    .ambient-sky {
       position: fixed;
       inset: 0;
       pointer-events: none;
@@ -73,70 +77,56 @@
       overflow: hidden;
     }
 
-    .snowflake {
+    .ember-dot {
       position: absolute;
-      top: -24px;
-      color: rgba(255, 255, 255, 0.85);
-      text-shadow: 0 0 8px rgba(205, 228, 255, 0.65);
-      user-select: none;
-      animation: snowFall linear infinite;
+      bottom: -15px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff3dc 0%, #f4bca8 55%, transparent 100%);
+      box-shadow: 0 0 10px rgba(247, 214, 163, 0.7);
+      animation: emberRise linear infinite;
     }
 
-    @keyframes snowFall {
+    @keyframes emberRise {
       0% {
-        transform: translateY(-10px) translateX(0) rotate(0deg);
+        transform: translateY(0) translateX(0) scale(0.6);
         opacity: 0;
       }
-      12% {
-        opacity: var(--snow-opacity, 0.7);
+      18% {
+        opacity: var(--ember-op, 0.75);
       }
-      88% {
-        opacity: var(--snow-opacity, 0.7);
+      85% {
+        opacity: var(--ember-op, 0.75);
       }
       100% {
-        transform: translateY(105vh) translateX(var(--sway, 35px)) rotate(360deg);
+        transform: translateY(-106vh) translateX(var(--drift, 40px)) scale(1.1);
         opacity: 0;
-      }
-    }
-
-    .star-spark {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 8px 1px rgba(246, 213, 168, 0.85);
-      animation: starTwinkle ease-in-out infinite;
-    }
-
-    @keyframes starTwinkle {
-      0%, 100% {
-        opacity: 0.15;
-        transform: scale(0.7);
-      }
-      50% {
-        opacity: 0.95;
-        transform: scale(1.3);
       }
     }
 
     .container {
       position: relative;
       z-index: 3;
-      max-width: 1000px;
+      max-width: 1020px;
       margin: 0 auto;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 34px;
-      animation: headerFadeIn 0.9s ease-out;
+    /* Editorial Love-Letter Header */
+    .letter-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 26px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(247, 214, 163, 0.2);
+      animation: fadeSlideDown 0.85s ease-out;
     }
 
-    @keyframes headerFadeIn {
+    @keyframes fadeSlideDown {
       0% {
         opacity: 0;
-        transform: translateY(-12px);
+        transform: translateY(-10px);
       }
       100% {
         opacity: 1;
@@ -144,75 +134,81 @@
       }
     }
 
-    .eyebrow {
+    .header-left {
+      max-width: 600px;
+    }
+
+    .date-ribbon {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.76rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--champagne);
-      background: rgba(246, 213, 168, 0.09);
-      border: 1px solid rgba(246, 213, 168, 0.28);
-      box-shadow: 0 4px 20px rgba(246, 213, 168, 0.08);
-      padding: 7px 16px;
-      border-radius: 999px;
-      margin-bottom: 14px;
-      backdrop-filter: blur(8px);
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.86rem;
+      color: var(--warm-gold);
+      margin-bottom: 8px;
     }
 
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(2.35rem, 5.5vw, 3.6rem);
+      font-size: clamp(2.5rem, 5.6vw, 3.8rem);
       font-weight: 600;
-      line-height: 1.1;
-      margin-bottom: 12px;
-      background: linear-gradient(120deg, #ffffff 15%, #ffd9e6 55%, #f6d5a8 95%);
+      font-style: italic;
+      line-height: 1.05;
+      margin-bottom: 10px;
+      background: linear-gradient(125deg, #fffaf6 18%, #f8cbb8 58%, #f7d6a3 95%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 10px 30px rgba(255, 179, 201, 0.16);
     }
 
     .subtitle {
-      max-width: 550px;
-      margin: 0 auto 20px;
+      font-family: 'Lora', Georgia, serif;
       font-size: 0.96rem;
-      line-height: 1.65;
-      color: var(--text-muted);
+      line-height: 1.7;
+      color: var(--soft-blush);
     }
 
-    .status-bar {
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      font-size: 0.84rem;
-      color: var(--text-muted);
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
     }
 
-    .pill {
-      background: rgba(255, 255, 255, 0.055);
-      border: 1px solid rgba(235, 215, 245, 0.18);
+    @media (max-width: 720px) {
+      .header-right {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+    }
+
+    .status-tag {
+      background: rgba(255, 240, 232, 0.06);
+      border: 1px solid rgba(247, 214, 163, 0.24);
       padding: 8px 16px;
-      border-radius: 999px;
+      border-radius: 14px;
+      font-size: 0.82rem;
+      color: var(--soft-blush);
       backdrop-filter: blur(10px);
     }
 
-    .pill strong {
-      color: var(--rose);
+    .status-tag strong {
+      color: var(--warm-gold);
       font-weight: 600;
     }
 
+    /* Envelope-Style Cards Grid */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(142px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
     }
 
     @media (max-width: 480px) {
       .grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 11px;
+        gap: 12px;
       }
     }
 
@@ -221,134 +217,155 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 128px;
-      padding: 15px;
-      border-radius: 20px;
-      border: 1px solid var(--card-border);
-      background: var(--card-glass);
-      color: var(--text-main);
+      min-height: 138px;
+      padding: 15px 15px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--paper-border);
+      background: var(--paper-glass);
+      color: var(--cream-text);
       text-align: left;
       cursor: pointer;
-      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
       backdrop-filter: blur(12px);
       overflow: hidden;
     }
 
+    /* Envelope Flap Geometry */
     .day-card::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 45%);
-      opacity: 0.55;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 46px;
+      background: linear-gradient(180deg, rgba(247, 214, 163, 0.11), transparent);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
       pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
     .day-card:hover:not(.locked) {
-      transform: translateY(-5px) scale(1.015);
-      border-color: rgba(255, 198, 218, 0.58);
-      box-shadow: 0 14px 30px rgba(255, 145, 185, 0.18), inset 0 0 16px rgba(255, 210, 228, 0.08);
+      transform: translateY(-5px);
+      border-color: rgba(247, 214, 163, 0.62);
+      box-shadow: 0 16px 34px rgba(212, 102, 128, 0.22), inset 0 0 20px rgba(247, 214, 163, 0.08);
     }
 
     .day-card.opened {
-      background: var(--card-open);
-      border-color: var(--card-open-border);
+      background: var(--paper-open);
+      border-color: var(--paper-open-border);
     }
 
     .day-card.today:not(.locked) {
-      border-color: rgba(255, 179, 201, 0.72);
-      animation: todayBreath 3.2s ease-in-out infinite;
+      border-color: rgba(247, 214, 163, 0.82);
+      animation: todayCandleGlow 3.4s ease-in-out infinite;
     }
 
-    @keyframes todayBreath {
+    @keyframes todayCandleGlow {
       0%, 100% {
-        box-shadow: 0 0 0 1px rgba(255, 179, 201, 0.38), 0 10px 26px rgba(255, 140, 180, 0.2);
+        box-shadow: 0 0 0 1px rgba(247, 214, 163, 0.4), 0 10px 26px rgba(220, 110, 130, 0.22);
       }
       50% {
-        box-shadow: 0 0 0 2px rgba(246, 213, 168, 0.55), 0 14px 36px rgba(255, 140, 180, 0.36);
+        box-shadow: 0 0 0 2px rgba(244, 188, 168, 0.65), 0 16px 38px rgba(235, 135, 145, 0.38);
       }
     }
 
     .day-card.locked {
-      opacity: 0.44;
+      opacity: 0.42;
       cursor: not-allowed;
     }
 
     .day-card.secret-reveal {
-      background: linear-gradient(145deg, rgba(255, 168, 198, 0.24), rgba(246, 213, 168, 0.2));
-      border-color: rgba(246, 213, 168, 0.65);
-      box-shadow: 0 0 32px rgba(255, 155, 190, 0.28);
-      animation: secretAppear 0.75s cubic-bezier(0.22, 1.25, 0.36, 1);
-    }
-
-    @keyframes secretAppear {
-      0% {
-        opacity: 0;
-        transform: scale(0.75) translateY(16px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+      background: linear-gradient(145deg, rgba(244, 175, 168, 0.26), rgba(247, 214, 163, 0.22));
+      border-color: rgba(247, 214, 163, 0.75);
+      box-shadow: 0 0 34px rgba(244, 165, 160, 0.32);
     }
 
     .card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
-      font-size: 0.74rem;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--soft-blush);
+      z-index: 1;
     }
 
     .day-card.today:not(.locked) .card-top span:first-child {
-      color: var(--rose);
+      color: var(--warm-gold);
       font-weight: 600;
     }
 
-    .gift-icon {
-      font-size: 1.18rem;
-      line-height: 1;
+    /* Wax Seal Badge */
+    .wax-seal {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      background: radial-gradient(circle at 32% 30%, #b63d5b, #6f1a30);
+      border: 1px solid rgba(247, 214, 163, 0.45);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.38);
       transition: transform 0.25s ease;
     }
 
-    .day-card:hover:not(.locked) .gift-icon {
-      transform: scale(1.18) rotate(6deg);
+    .day-card.locked .wax-seal {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.14);
+      box-shadow: none;
+    }
+
+    .day-card.opened .wax-seal {
+      background: radial-gradient(circle at 32% 30%, #e59a84, #9e4b46);
+    }
+
+    .day-card:hover:not(.locked) .wax-seal {
+      transform: scale(1.14) rotate(8deg);
+    }
+
+    .card-center {
+      margin-top: 8px;
+      z-index: 1;
     }
 
     .day-num {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.9rem;
+      font-size: 2.05rem;
       font-weight: 600;
-      line-height: 1.05;
-      margin: 7px 0 2px;
+      line-height: 1;
+      color: #fff9f5;
     }
 
     .day-month {
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--champagne);
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--rose-gold);
+      margin-top: 2px;
     }
 
     .card-footer {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-top: 9px;
+      font-size: 0.73rem;
+      color: var(--soft-blush);
+      margin-top: 10px;
+      padding-top: 7px;
+      border-top: 1px dashed rgba(247, 214, 163, 0.16);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      z-index: 1;
     }
 
     .day-card.opened .card-footer {
-      color: var(--rose);
+      color: var(--warm-gold);
     }
 
-    /* Romantic Love-Letter Modal */
+    /* Poetic Letter Sheet Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(6, 8, 18, 0.8);
+      background: rgba(12, 5, 9, 0.82);
       backdrop-filter: blur(10px);
       display: none;
       align-items: center;
@@ -364,26 +381,37 @@
     .modal {
       position: relative;
       width: 100%;
-      max-width: 490px;
+      max-width: 500px;
       background:
-        radial-gradient(circle at top right, rgba(255, 179, 201, 0.14), transparent 50%),
-        radial-gradient(circle at bottom left, rgba(168, 208, 255, 0.1), transparent 50%),
-        var(--modal-bg);
-      border: 1px solid rgba(255, 205, 224, 0.28);
-      border-radius: 26px;
-      padding: 30px 26px 28px;
-      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65), 0 0 40px rgba(255, 165, 198, 0.12);
+        radial-gradient(circle at top left, rgba(247, 214, 163, 0.13), transparent 48%),
+        radial-gradient(circle at bottom right, rgba(214, 96, 128, 0.14), transparent 52%),
+        var(--letter-sheet);
+      border: 1px solid rgba(247, 214, 163, 0.34);
+      border-radius: 24px;
+      padding: 32px 28px 28px;
+      box-shadow: 0 30px 75px rgba(0, 0, 0, 0.72), inset 0 0 0 6px rgba(247, 214, 163, 0.04);
       overflow: hidden;
     }
 
     .modal.gift-pop {
-      animation: giftPop 0.55s cubic-bezier(0.22, 1.25, 0.36, 1);
+      animation: letterUnfold 0.55s cubic-bezier(0.22, 1.2, 0.36, 1);
+    }
+
+    @keyframes letterUnfold {
+      0% {
+        opacity: 0;
+        transform: scale(0.88) translateY(18px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .modal.jan1-mode {
-      background: linear-gradient(160deg, #281326, #141126 58%, #291a20);
-      border-color: rgba(246, 213, 168, 0.55);
-      box-shadow: 0 28px 80px rgba(255, 140, 180, 0.32);
+      background: linear-gradient(155deg, #2d111e, #1a0b14 55%, #2b1817);
+      border-color: rgba(247, 214, 163, 0.65);
+      box-shadow: 0 30px 85px rgba(235, 130, 145, 0.35);
     }
 
     .bg-year-2027 {
@@ -393,48 +421,22 @@
       align-items: center;
       justify-content: center;
       font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
       font-size: clamp(5.5rem, 22vw, 8.8rem);
       font-weight: 600;
-      letter-spacing: 0.06em;
-      color: rgba(255, 185, 205, 0.09);
+      color: rgba(247, 214, 163, 0.09);
       user-select: none;
       pointer-events: none;
       z-index: 0;
-      animation: yearPulse 4s ease-in-out infinite;
     }
 
     .modal.jan1-mode .bg-year-2027 {
       display: flex;
     }
 
-    @keyframes yearPulse {
-      0%, 100% {
-        transform: scale(0.98);
-        color: rgba(255, 185, 205, 0.08);
-      }
-      50% {
-        transform: scale(1.03);
-        color: rgba(246, 213, 168, 0.15);
-      }
-    }
-
     .modal > *:not(.bg-year-2027) {
       position: relative;
       z-index: 2;
-    }
-
-    @keyframes giftPop {
-      0% {
-        opacity: 0;
-        transform: scale(0.86) translateY(16px) rotate(-1.2deg);
-      }
-      55% {
-        transform: scale(1.02) translateY(-2px) rotate(0.6deg);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0) rotate(0deg);
-      }
     }
 
     .close-btn {
@@ -444,9 +446,9 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-main);
+      border: 1px solid rgba(247, 214, 163, 0.24);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--cream-text);
       font-size: 1.1rem;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.2s ease;
@@ -454,38 +456,42 @@
     }
 
     .close-btn:hover {
-      background: rgba(255, 179, 201, 0.2);
+      background: rgba(244, 188, 168, 0.2);
       transform: rotate(90deg);
     }
 
     .modal-date {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--champagne);
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--warm-gold);
       margin-bottom: 6px;
     }
 
     .modal-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.98rem;
+      font-size: 2.15rem;
       font-weight: 600;
-      line-height: 1.15;
-      margin-bottom: 14px;
+      font-style: italic;
+      line-height: 1.12;
+      margin-bottom: 16px;
       padding-right: 34px;
-      color: #fff;
+      color: #fff8f4;
     }
 
     .modal-text {
-      font-size: 1rem;
-      line-height: 1.78;
-      color: rgba(253, 245, 250, 0.94);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.02rem;
+      line-height: 1.84;
+      color: rgba(253, 243, 238, 0.95);
       margin-bottom: 18px;
       white-space: pre-line;
+      padding-left: 14px;
+      border-left: 2px solid rgba(247, 214, 163, 0.35);
     }
 
     .modal.jan1-mode .modal-text {
-      font-size: 1.07rem;
+      font-size: 1.08rem;
     }
 
     /* Two-choice romantic note (Nov 28) */
@@ -513,39 +519,40 @@
 
     .choice-btn {
       padding: 11px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 198, 218, 0.28);
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.86rem;
-      font-weight: 500;
+      border-radius: 14px;
+      border: 1px solid rgba(247, 214, 163, 0.28);
+      background: rgba(255, 240, 232, 0.05);
+      color: var(--cream-text);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.88rem;
       cursor: pointer;
       transition: all 0.22s ease;
     }
 
     .choice-btn:hover {
-      border-color: var(--rose);
-      background: rgba(255, 179, 201, 0.14);
+      border-color: var(--warm-gold);
+      background: rgba(244, 188, 168, 0.14);
       transform: translateY(-2px);
     }
 
     .choice-btn.selected {
-      background: linear-gradient(135deg, rgba(255, 179, 201, 0.26), rgba(246, 213, 168, 0.2));
-      border-color: var(--champagne);
+      background: linear-gradient(135deg, rgba(244, 188, 168, 0.26), rgba(247, 214, 163, 0.2));
+      border-color: var(--warm-gold);
       color: #fff;
-      box-shadow: 0 6px 20px rgba(255, 155, 190, 0.2);
+      box-shadow: 0 6px 20px rgba(220, 115, 130, 0.25);
     }
 
     .choice-reveal {
       min-height: 68px;
       padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255, 179, 201, 0.08);
-      border: 1px dashed rgba(246, 213, 168, 0.36);
-      font-size: 0.96rem;
-      line-height: 1.7;
-      color: #fff5f9;
+      border-radius: 16px;
+      background: rgba(247, 214, 163, 0.08);
+      border: 1px dashed rgba(247, 214, 163, 0.4);
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: #fff6f1;
       animation: choiceFade 0.35s ease;
     }
 
@@ -561,15 +568,17 @@
     }
 
     .audio-box {
-      background: rgba(255, 255, 255, 0.055);
-      border: 1px solid rgba(255, 205, 224, 0.22);
-      border-radius: 18px;
+      background: rgba(255, 240, 232, 0.05);
+      border: 1px solid rgba(247, 214, 163, 0.22);
+      border-radius: 16px;
       padding: 12px 14px;
     }
 
     .audio-label {
-      font-size: 0.78rem;
-      color: var(--rose);
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--rose-gold);
       margin-bottom: 8px;
     }
 
@@ -578,7 +587,7 @@
       height: 38px;
     }
 
-    /* Floating hearts from gift box */
+    /* Floating hearts */
     .heart-burst-layer {
       pointer-events: none;
       position: fixed;
@@ -634,17 +643,19 @@
   </style>
 </head>
 <body>
-  <div class="winter-sky" id="winterSky" aria-hidden="true"></div>
+  <div class="ambient-sky" id="ambientSky" aria-hidden="true"></div>
   <div class="heart-burst-layer" id="heartLayer"></div>
 
   <div class="container">
-    <header>
-      <div class="eyebrow">❄️ 24 NOYABR — 31 DEKABR ❄️</div>
-      <h1>Hər Gün Sənə Doğru ✨</h1>
-      <p class="subtitle">Qışın soyuğunda ürəyini isidəcək balaca xatirələr. Bəzi şeylər sözə ehtiyac duymur, bəziləri isə bircə cümlə ilə yerinə düşür.</p>
-      <div class="status-bar">
-        <div class="pill">Açılan: <strong id="openedCount">0</strong> / <strong id="totalCount">38</strong></div>
-        <div class="pill" id="todayInfo">Bu gün: —</div>
+    <header class="letter-header">
+      <div class="header-left">
+        <div class="date-ribbon">🕯️ 24 Noyabr — 31 Dekabr · Sənə yazılmış 38 kiçik məktub</div>
+        <h1>Hər Gün Sənə Doğru</h1>
+        <p class="subtitle">Bəzi hisslər səs-küy sevmir — sadəcə hər gün açılan bir zərfin içində sakitcə səni gözləyir.</p>
+      </div>
+      <div class="header-right">
+        <div class="status-tag">Oxunan məktublar: <strong id="openedCount">0</strong> / <strong id="totalCount">38</strong></div>
+        <div class="status-tag" id="todayInfo">Bu gün: —</div>
       </div>
     </header>
 
@@ -668,7 +679,7 @@
       </div>
 
       <div class="audio-box" id="audioBox" style="display: none;">
-        <div class="audio-label" id="audioLabel">Bu günün fon musiqisi 🎶</div>
+        <div class="audio-label" id="audioLabel">Məktubun fon musiqisi 🎶</div>
         <audio id="audioPlayer" controls preload="metadata"></audio>
       </div>
     </div>
@@ -772,7 +783,7 @@
     };
 
     const STORAGE_KEY = "advent_38_opened_v4";
-    const winterSkyEl = document.getElementById("winterSky");
+    const ambientSkyEl = document.getElementById("ambientSky");
     const gridEl = document.getElementById("calendarGrid");
     const openedCountEl = document.getElementById("openedCount");
     const totalCountEl = document.getElementById("totalCount");
@@ -793,36 +804,25 @@
 
     let activeTwoChoiceEntry = null;
 
-    function initWinterSky() {
-      const flakes = ["❄", "❅", "❆", "•"];
-      for (let i = 0; i < 36; i++) {
-        const flake = document.createElement("span");
-        flake.className = "snowflake";
-        flake.textContent = flakes[i % flakes.length];
-        const size = 9 + Math.random() * 12;
+    function initCandleEmbers() {
+      for (let i = 0; i < 32; i++) {
+        const dot = document.createElement("span");
+        dot.className = "ember-dot";
+        const size = 2.5 + Math.random() * 4;
         const left = Math.random() * 100;
-        const duration = 10 + Math.random() * 14;
-        const delay = -Math.random() * 20;
-        const sway = (Math.random() - 0.5) * 90;
-        const opacity = 0.25 + Math.random() * 0.55;
+        const duration = 9 + Math.random() * 13;
+        const delay = -Math.random() * 18;
+        const drift = (Math.random() - 0.5) * 90;
+        const op = 0.3 + Math.random() * 0.55;
 
-        flake.style.fontSize = `${size}px`;
-        flake.style.left = `${left}%`;
-        flake.style.animationDuration = `${duration}s`;
-        flake.style.animationDelay = `${delay}s`;
-        flake.style.setProperty("--sway", `${sway}px`);
-        flake.style.setProperty("--snow-opacity", opacity.toFixed(2));
-        winterSkyEl.appendChild(flake);
-      }
-
-      for (let i = 0; i < 24; i++) {
-        const star = document.createElement("span");
-        star.className = "star-spark";
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 65}%`;
-        star.style.animationDuration = `${2.5 + Math.random() * 3.5}s`;
-        star.style.animationDelay = `${Math.random() * 4}s`;
-        winterSkyEl.appendChild(star);
+        dot.style.width = `${size}px`;
+        dot.style.height = `${size}px`;
+        dot.style.left = `${left}%`;
+        dot.style.animationDuration = `${duration}s`;
+        dot.style.animationDelay = `${delay}s`;
+        dot.style.setProperty("--drift", `${drift}px`);
+        dot.style.setProperty("--ember-op", op.toFixed(2));
+        ambientSkyEl.appendChild(dot);
       }
     }
 
@@ -864,8 +864,8 @@
 
     function spawnHearts(isRomanticFinal = false) {
       const hearts = isRomanticFinal
-        ? ["🤍", "❤️", "💖", "✨", "💕", "❄️"]
-        : ["🤍", "♥", "✨", "❄️"];
+        ? ["🤍", "❤️", "💖", "✨", "💕", "🕯️"]
+        : ["🤍", "♥", "✨", "🕯️"];
       const count = isRomanticFinal ? 28 : 12;
 
       for (let i = 0; i < count; i++) {
@@ -1022,18 +1022,18 @@
         if (today) btn.classList.add("today");
         if (entry.isSecretJan1) btn.classList.add("secret-reveal");
 
-        const icon = !unlocked ? "🔒" : (entry.isSecretJan1 ? "🥂" : (opened ? "💌" : "🎁"));
+        const icon = !unlocked ? "🔒" : (entry.isSecretJan1 ? "🥂" : (opened ? "🤍" : "✉️"));
         const badgeText = entry.isSecretJan1 ? "SÜRPRİZ" : (today ? "BU GÜN" : entry.month.slice(0, 3).toUpperCase());
         const statusText = !unlocked
           ? `${entry.day} ${entry.month}`
-          : (entry.isSecretJan1 ? (opened ? "Açıldı 🤍" : "Gizli qutu") : (opened ? "Oxundu 🤍" : (today ? "Bu günün məktubu" : "Açılmayıb")));
+          : (entry.isSecretJan1 ? (opened ? "Açıldı 🤍" : "Gizli zərf") : (opened ? "Oxunub 🤍" : (today ? "Bugünkü məktub" : "Zərfi aç")));
 
         btn.innerHTML = `
           <div class="card-top">
             <span>${badgeText}</span>
-            <span class="gift-icon">${icon}</span>
+            <span class="wax-seal">${icon}</span>
           </div>
-          <div>
+          <div class="card-center">
             <div class="day-num">${entry.day}</div>
             <div class="day-month">${entry.month} ${entry.isSecretJan1 ? "2027" : ""}</div>
           </div>
@@ -1060,7 +1060,7 @@
       }
     });
 
-    initWinterSky();
+    initCandleEmbers();
     renderGrid();
 
     setInterval(() => {
